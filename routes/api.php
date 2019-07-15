@@ -21,3 +21,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('authenticate', 'AuthController@authenticate')->name('api.authenticate');
     Route::post('register', 'AuthController@register')->name('api.register');
 });
+
+Route::group(['middleware' => ['api', 'auth']], function (){
+    Route::get('index','UsersController@index')->name('api.users.index');
+});
