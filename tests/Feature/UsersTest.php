@@ -77,4 +77,25 @@ class UsersTest extends TestCase
             'name' => 'Test Updated',
         ]);
     }
+
+    public function test_delete_existing_user()
+    {
+        // arrange
+        $user = factory(User::class)->create();
+
+        // act
+        $response = $this
+            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+            ->json(
+                'DELETE',
+                route('api.users.delete', $user->id)
+            );
+
+        // assert
+        $response->assertStatus(200);
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $user->id
+        ]);
+    }
 }
