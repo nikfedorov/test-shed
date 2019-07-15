@@ -32,4 +32,28 @@ class AuthTest extends TestCase
             'name' => 'Test'
         ]);
     }
+
+    public function test_login_successful()
+    {
+        // arrange
+        $user = factory(User::class)->create([
+            'email' => 'test@gmail.com',
+            'password' => bcrypt('secret1234'),
+        ]);
+
+        // act
+        $response = $this->json(
+            'POST',
+            route('api.authenticate'),
+            [
+                'email' => 'test@gmail.com',
+                'password' => 'secret1234',
+            ]
+        );
+
+        // assert
+        $response->assertStatus(200);
+
+        $this->assertArrayHasKey('token', $response->json());
+    }
 }
