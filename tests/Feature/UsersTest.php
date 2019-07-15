@@ -26,4 +26,27 @@ class UsersTest extends TestCase
 
         $response->assertJsonCount(10);
     }
+
+    public function test_create_new_user()
+    {
+        // act
+        $response = $this
+            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+            ->json(
+                'POST',
+                route('api.users.create'),
+                [
+                    'email' => 'test-created@gmail.com',
+                    'name' => 'Test Created',
+                    'password' => 'secretsecret'
+                ]
+            );
+
+        // assert
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'test-created@gmail.com'
+        ]);
+    }
 }
