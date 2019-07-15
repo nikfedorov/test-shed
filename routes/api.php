@@ -19,6 +19,6 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'users'], function () {
-    Route::get('index','UsersController@index')->name('api.users.index');
+    Route::get('','UsersController@index')->name('api.users.index');
     Route::post('create', 'UsersController@create')->name('api.users.create');
 });
