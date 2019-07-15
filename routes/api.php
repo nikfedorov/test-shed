@@ -24,4 +24,5 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 
 Route::group(['middleware' => ['api', 'auth']], function (){
     Route::get('index','UsersController@index')->name('api.users.index');
+    Route::post('create', 'UsersController@create')->name('api.users.create');
 });
