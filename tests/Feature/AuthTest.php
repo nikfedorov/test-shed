@@ -56,4 +56,28 @@ class AuthTest extends TestCase
 
         $this->assertArrayHasKey('token', $response->json());
     }
+
+    public function test_login_fail_on_bad_credentials()
+    {
+        // arrange
+        $user = factory(User::class)->create([
+            'email' => 'test@gmail.com',
+            'password' => bcrypt('secret1234'),
+        ]);
+
+        // act
+        $response = $this->json(
+            'POST',
+            route('api.authenticate'),
+            [
+                'email' => 'test@gmail.com',
+                'password' => 'secret12345',
+            ]
+        );
+
+        // assert
+        $response->assertStatus(401);
+
+        $this->assertArrayHasKey('error', $response->json());
+    }
 }
