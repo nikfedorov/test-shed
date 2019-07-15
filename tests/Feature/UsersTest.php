@@ -49,4 +49,32 @@ class UsersTest extends TestCase
             'email' => 'test-created@gmail.com'
         ]);
     }
+
+    public function test_update_existing_user()
+    {
+        // arrange
+        $user = factory(User::class)->create();
+
+        // act
+        $response = $this
+            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+            ->json(
+                'PUT',
+                route('api.users.update', $user->id),
+                [
+                    'email' => 'test-updated@gmail.com',
+                    'name' => 'Test Updated',
+                    'password' => 'secretsecret'
+                ]
+            );
+
+        // assert
+        $response->assertStatus(200);
+
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'email' => 'test-updated@gmail.com',
+            'name' => 'Test Updated',
+        ]);
+    }
 }
