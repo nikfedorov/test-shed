@@ -18,7 +18,7 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
     Route::post('register', 'AuthController@register')->name('api.register');
 });
 
-Route::group(['middleware' => ['api', 'auth']], function (){
+Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'users'], function () {
     Route::get('index','UsersController@index')->name('api.users.index');
     Route::post('create', 'UsersController@create')->name('api.users.create');
 });
