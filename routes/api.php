@@ -21,4 +21,5 @@ Route::group(['middleware' => 'api', 'prefix' => 'auth'], function () {
 Route::group(['middleware' => ['api', 'auth'], 'prefix' => 'users'], function () {
     Route::get('','UsersController@index')->name('api.users.index');
     Route::post('create', 'UsersController@create')->name('api.users.create');
+    Route::put('{id}', 'UsersController@update')->name('api.users.update');
 });
