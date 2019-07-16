@@ -8,11 +8,23 @@ use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
+    /**
+     * Lists all users, no pagination provided
+     *
+     * @return string
+     */
     public function index()
     {
         return User::all()->toJson();
     }
 
+    /**
+     * List all users, no pagination
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
     public function create(Request $request)
     {
         $validInput = $this->validate($request, [
@@ -30,6 +42,14 @@ class UsersController extends Controller
         return $user->toJson();
     }
 
+    /**
+     * Update a user under specified $id
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return string
+     */
     public function update(Request $request, $id)
     {
         $validInput = $this->validate($request, [
@@ -50,6 +70,14 @@ class UsersController extends Controller
         return $user->toJson();
     }
 
+    /**
+     * Delete a user with specified $id
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return string
+     */
     public function delete(Request $request, $id)
     {
         $user = User::findOrFail($id);

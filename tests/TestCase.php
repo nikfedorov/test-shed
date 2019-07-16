@@ -12,6 +12,11 @@ abstract class TestCase extends BaseTestCase
     use CreatesApplication;
     use RefreshDatabase;
 
+    /**
+     * Create a token for authorized request
+     *
+     * @return string
+     */
     public function authenticate()
     {
         $user = factory(User::class)->create([
@@ -23,6 +28,11 @@ abstract class TestCase extends BaseTestCase
         return $token;
     }
 
+    /**
+     * Create a request with prepared headers
+     *
+     * @return PHPUnit\Framework\Test
+     */
     public function prepareRequest()
     {
         return $this->withHeaders([
