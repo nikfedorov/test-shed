@@ -14,8 +14,7 @@ class UsersTest extends TestCase
         $user = factory(User::class, 9)->create();
 
         // act
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+        $response = $this->prepareRequest()
             ->json(
                 'GET',
                 route('api.users.index')
@@ -30,8 +29,7 @@ class UsersTest extends TestCase
     public function test_create_new_user()
     {
         // act
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+        $response = $this->prepareRequest()
             ->json(
                 'POST',
                 route('api.users.create'),
@@ -56,8 +54,7 @@ class UsersTest extends TestCase
         $user = factory(User::class)->create();
 
         // act
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+        $response = $this->prepareRequest()
             ->json(
                 'PUT',
                 route('api.users.update', $user->id),
@@ -84,8 +81,7 @@ class UsersTest extends TestCase
         $user = factory(User::class)->create();
 
         // act
-        $response = $this
-            ->withHeaders(['Authorization' => 'Bearer '. $this->authenticate()])
+        $response = $this->prepareRequest()
             ->json(
                 'DELETE',
                 route('api.users.delete', $user->id)

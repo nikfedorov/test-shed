@@ -22,4 +22,11 @@ abstract class TestCase extends BaseTestCase
         $token = JWTAuth::fromUser($user);
         return $token;
     }
+
+    public function prepareRequest()
+    {
+        return $this->withHeaders([
+            'Authorization' => 'Bearer '. $this->authenticate()
+        ]);
+    }
 }
