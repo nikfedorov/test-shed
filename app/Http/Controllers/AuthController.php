@@ -9,6 +9,14 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+
+    /**
+     * Perform authentication
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
     public function authenticate(Request $request)
     {
         // Validation field
@@ -25,6 +33,13 @@ class AuthController extends Controller
         return response()->json(compact('token'));
     }
 
+    /**
+     * Register a new user
+     *
+     * @param Request $request
+     *
+     * @return string
+     */
     public function register(Request $request)
     {
         // Expression Verification
